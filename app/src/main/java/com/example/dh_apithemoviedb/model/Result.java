@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Filme {
+public class Result {
 
     @Expose
     private Boolean adult;

@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.example.dh_apithemoviedb.R;
-import com.example.dh_apithemoviedb.model.Filme;
+import com.example.dh_apithemoviedb.model.Result;
 import com.example.dh_apithemoviedb.view.adapter.FilmeRecyclerViewAdapter;
 import com.example.dh_apithemoviedb.viewmodel.FilmeViewModel;
 
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
     private FilmeViewModel viewModel;
-    private List<Filme> listaFilmes = new ArrayList<>();
+    private List<Result> listaResults = new ArrayList<>();
     private FilmeRecyclerViewAdapter adapter;
 
     @Override
@@ -54,6 +54,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewFilmes);
         progressBar = findViewById(R.id.progressBar);
         viewModel = ViewModelProviders.of(this).get(FilmeViewModel.class);
-        adapter = new FilmeRecyclerViewAdapter(listaFilmes);
+        adapter = new FilmeRecyclerViewAdapter(listaResults);
     }
 }
