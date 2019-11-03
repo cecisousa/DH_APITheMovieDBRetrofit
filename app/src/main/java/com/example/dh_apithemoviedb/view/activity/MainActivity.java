@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -12,12 +13,13 @@ import android.widget.ProgressBar;
 import com.example.dh_apithemoviedb.R;
 import com.example.dh_apithemoviedb.model.Result;
 import com.example.dh_apithemoviedb.view.adapter.FilmeRecyclerViewAdapter;
+import com.example.dh_apithemoviedb.view.interfaces.OnClick;
 import com.example.dh_apithemoviedb.viewmodel.FilmeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnClick {
     private RecyclerView recyclerView;
     private ProgressBar progressBar;
     private FilmeViewModel viewModel;
@@ -54,6 +56,16 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewFilmes);
         progressBar = findViewById(R.id.progressBar);
         viewModel = ViewModelProviders.of(this).get(FilmeViewModel.class);
-        adapter = new FilmeRecyclerViewAdapter(listaResults);
+        adapter = new FilmeRecyclerViewAdapter(listaResults, this);
+    }
+
+
+    @Override
+    public void click(Result result) {
+        Intent intent = new Intent(MainActivity.this, DetalheActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("Result", result);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

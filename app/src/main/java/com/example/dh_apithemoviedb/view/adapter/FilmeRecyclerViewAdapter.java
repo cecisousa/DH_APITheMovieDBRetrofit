@@ -11,15 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.dh_apithemoviedb.R;
 import com.example.dh_apithemoviedb.model.Result;
+import com.example.dh_apithemoviedb.view.interfaces.OnClick;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 public class FilmeRecyclerViewAdapter extends RecyclerView.Adapter<FilmeRecyclerViewAdapter.ViewHolder> {
     private List<Result> listaResults;
+    private OnClick listener;
 
-    public FilmeRecyclerViewAdapter (List<Result> listaResults) {
+    public FilmeRecyclerViewAdapter (List<Result> listaResults, OnClick listener) {
         this.listaResults = listaResults;
+        this.listener = listener;
     }
 
     @NonNull
@@ -33,6 +36,7 @@ public class FilmeRecyclerViewAdapter extends RecyclerView.Adapter<FilmeRecycler
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Result result = listaResults.get(position);
         holder.onBind(result);
+        holder.itemView.setOnClickListener(v -> listener.click(result));
     }
 
     @Override
