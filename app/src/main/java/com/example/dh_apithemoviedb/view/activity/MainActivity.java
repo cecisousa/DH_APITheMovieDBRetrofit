@@ -1,5 +1,6 @@
 package com.example.dh_apithemoviedb.view.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity implements OnClick {
     private FilmeViewModel viewModel;
     private List<Result> listaResults = new ArrayList<>();
     private FilmeRecyclerViewAdapter adapter;
+    private int pagina = 1;
+    public static final String API_KEY = "bde8033d3274c91b292a5293c6349052";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +38,9 @@ public class MainActivity extends AppCompatActivity implements OnClick {
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        setScrollView();
 
-        viewModel.getAllFilmes("bde8033d3274c91b292a5293c6349052");
+        viewModel.getAllFilmes(API_KEY, pagina);
 
         viewModel.getListaFilme().observe(this, resultadoLista -> {
             adapter.atualizaLista(resultadoLista);
@@ -67,5 +71,30 @@ public class MainActivity extends AppCompatActivity implements OnClick {
         bundle.putParcelable("Result", result);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    private void setScrollView() {
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+
+                int totalItemCount = layoutManager.getItemCount();
+                int lastVisible = layoutManager.findLastVisibleItemPosition();
+                boolean ultimoItem = lastVisible + 5 >= totalItemCount;
+
+                if (totalItemCount > 0 && ultimoItem) {
+                    pagina++;
+                    viewModel.getAllFilmes(API_KEY, pagina);
+                }
+            }
+        });
     }
 }

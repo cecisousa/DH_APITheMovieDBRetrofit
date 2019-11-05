@@ -8,7 +8,7 @@ import static com.example.dh_apithemoviedb.data.remote.RetrofitService.getApiSer
 
 public class FilmeRepository {
 
-    public Observable<FilmeResult> getFilmes(String apiKey) {
-        return getApiService().getAllFilmes(apiKey);
+    public Observable<FilmeResult> getFilmes(String apiKey, int pagina) {
+        return getApiService().getAllFilmes(apiKey, pagina);
     }
 }

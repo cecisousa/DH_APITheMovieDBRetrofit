@@ -45,8 +45,14 @@ public class FilmeRecyclerViewAdapter extends RecyclerView.Adapter<FilmeRecycler
     }
 
     public void atualizaLista(List<Result> novaLista) {
-        this.listaResults.clear();
-        this.listaResults = novaLista;
+//        this.listaResults.clear();
+//        this.listaResults = novaLista;
+//        notifyDataSetChanged();
+        if (this.listaResults.isEmpty()) {
+            this.listaResults = novaLista;
+        } else {
+            this.listaResults.addAll(novaLista);
+        }
         notifyDataSetChanged();
     }
 

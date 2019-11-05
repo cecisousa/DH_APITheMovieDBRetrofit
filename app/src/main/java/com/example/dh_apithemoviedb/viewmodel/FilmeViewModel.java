@@ -36,9 +36,9 @@ public class FilmeViewModel extends AndroidViewModel {
         return this.loading;
     }
 
-    public void getAllFilmes(String apiKey) {
+    public void getAllFilmes(String apiKey, int pagina) {
         disposable.add(
-                repository.getFilmes(apiKey)
+                repository.getFilmes(apiKey, pagina)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable1 -> loading.setValue(true))

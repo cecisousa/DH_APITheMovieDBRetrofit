@@ -10,7 +10,8 @@ import retrofit2.http.Query;
 public interface FilmeAPI {
 
     @GET("movie/now_playing")
-    Observable<FilmeResult> getAllFilmes(@Query("api_key") String apiKey);
+    Observable<FilmeResult> getAllFilmes(@Query("api_key") String apiKey,
+                                         @Query("page") int pagina);
 
 //    Para mais parâmtros:
 //    Observable<FilmeResult> getAllFilmes(@Query("api_key") String apiKey,
